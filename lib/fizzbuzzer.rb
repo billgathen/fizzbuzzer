@@ -3,7 +3,7 @@ require 'json'
 class Fizzbuzzer
   attr_reader :up_to
   def initialize up_to
-    @up_to = up_to
+    @up_to = up_to.to_i
   end
 
   def generate
@@ -25,7 +25,7 @@ class Fizzbuzzer
   end
 
   def valid_value
-    (! up_to.nil?) && is_numeric && up_to >= 1
+    up_to >= 1
   end
 
   # http://mentalized.net/journal/2011/04/14/ruby_how_to_check_if_a_string_is_numeric/
