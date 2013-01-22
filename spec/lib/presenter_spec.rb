@@ -1,15 +1,15 @@
 require_relative '../../lib/presenter'
 
 describe Presenter do
-  let(:present) { Presenter.new(%w{ 1 Fizz Buzz FizzBuzz }) }
+  let(:present) { Presenter.new(%w{ 1 Be bop alulah }) }
 
   context "outputs" do
     it "text" do
-      present.as_text.should == "1, Fizz, Buzz, FizzBuzz"
+      present.as_text.should == "1, Be, bop, alulah"
     end
 
     it "json" do
-      present.as_json.should == "[\"1\",\"Fizz\",\"Buzz\",\"FizzBuzz\"]"
+      present.as_json.should == "[\"1\",\"Be\",\"bop\",\"alulah\"]"
     end
 
     it "html" do
@@ -19,9 +19,9 @@ describe Presenter do
   <body>
     <ol>
       <li>1</li>
-      <li>Fizz</li>
-      <li>Buzz</li>
-      <li>FizzBuzz</li>
+      <li>Be</li>
+      <li>bop</li>
+      <li>alulah</li>
     </ol>
   </body>
 </html>

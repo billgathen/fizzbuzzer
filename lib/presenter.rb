@@ -1,11 +1,6 @@
 require 'json'
 
-class Presenter
-  attr_reader :ary
-  def initialize ary
-    @ary = ary
-  end
-
+class Presenter < Struct.new(:ary)
   def as_text
     ary.join(', ')
   end
