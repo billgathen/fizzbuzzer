@@ -6,9 +6,15 @@ end
 
 class Fizzbuzzer < Array
   def initialize last_num = 0
-    unless last_num.nil? || last_num.to_i == 0
-      load(last_num.to_i)
-    end
+    load(last_num.to_i) unless invalid(last_num)
+  end
+
+  def invalid last_num
+    last_num.to_i <= 0
+  end
+
+  def load last_num
+    (1..last_num).each { |n| self << fizzbuzz(n) }
   end
 
   def fizzbuzz n
@@ -21,9 +27,5 @@ class Fizzbuzzer < Array
     else
       n.to_s
     end
-  end
-
-  def load last_num
-    (1..last_num).each { |n| self << fizzbuzz(n) }
   end
 end
