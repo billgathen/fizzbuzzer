@@ -1,4 +1,5 @@
 require 'sinatra'
+require_relative 'lib/presenter'
 require_relative 'lib/fizzbuzzer'
 
 get '/' do
@@ -7,7 +8,7 @@ get '/' do
   <body>
     <h3>Enter a number to FizzBuzz up to:</h3>
     <form method="post">
-      <input type="text" name="up_to" value="15">
+      <input type="text" name="last_num" value="15">
       <select name="format">
         <option>text</option>
         <option>json</option>
@@ -21,7 +22,7 @@ EOF
 end
 
 post '/' do
-  fb = Fizzbuzzer.new(params[:up_to])
+  fb = Presenter.new(Fizzbuzzer.new(params[:last_num]))
   puts "FORMAT: " + params[:format]
   if params[:format] == "text"
     fb.as_text

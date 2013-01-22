@@ -1,18 +1,17 @@
-require 'json'
-
 class Fixnum
   def multiple_of divisor
     self % divisor == 0
   end
 end
 
-class Fizzbuzzer
-  attr_reader :up_to
-  def initialize up_to = 0
-    @up_to = up_to.to_i
+class Fizzbuzzer < Array
+  def initialize last_num = 0
+    unless last_num.nil? || last_num.to_i == 0
+      load(last_num.to_i)
+    end
   end
 
-  def map n
+  def fizzbuzz n
     if n.multiple_of(15)
       "FizzBuzz"
     elsif n.multiple_of(5)
@@ -24,27 +23,7 @@ class Fizzbuzzer
     end
   end
 
-  def generate
-    (1..up_to).map { |n| map(n) }
-  end
-
-  def as_text
-    generate.join(', ')
-  end
-
-  def as_json
-    JSON.generate(generate)
-  end
-
-  def as_html
-    <<EOF
-<html>
-  <body>
-    <ol>
-#{generate.map{ |ele| "      <li>#{ele}</li>" }.join("\n")}
-    </ol>
-  </body>
-</html>
-EOF
+  def load last_num
+    (1..last_num).each { |n| self << fizzbuzz(n) }
   end
 end
