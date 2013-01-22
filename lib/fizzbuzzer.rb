@@ -1,36 +1,31 @@
 require 'json'
 
+class Fixnum
+  def multiple_of divisor
+    self % divisor == 0
+  end
+end
+
 class Fizzbuzzer
   attr_reader :up_to
-  def initialize up_to
+  def initialize up_to = 0
     @up_to = up_to.to_i
   end
 
-  def generate
-    if valid_value
-      (1..up_to).map do |n|
-        if (n % 15) == 0
-          "FizzBuzz"
-        elsif (n % 5) == 0
-          "Buzz"
-        elsif (n % 3) == 0
-          "Fizz"
-        else
-          n
-        end
-      end
+  def map n
+    if n.multiple_of(15)
+      "FizzBuzz"
+    elsif n.multiple_of(5)
+      "Buzz"
+    elsif n.multiple_of(3)
+      "Fizz"
     else
-      []
+      n.to_s
     end
   end
 
-  def valid_value
-    up_to >= 1
-  end
-
-  # http://mentalized.net/journal/2011/04/14/ruby_how_to_check_if_a_string_is_numeric/
-  def is_numeric
-    Float(up_to) != nil rescue false
+  def generate
+    (1..up_to).map { |n| map(n) }
   end
 
   def as_text
@@ -42,8 +37,14 @@ class Fizzbuzzer
   end
 
   def as_html
-    "<ul>\n" +
-    generate.map{ |ele| "\t<li>#{ele}</li>\n" }.join('') +
-    "</ul>\n"
+    <<EOF
+<html>
+  <body>
+    <ol>
+#{generate.map{ |ele| "      <li>#{ele}</li>" }.join("\n")}
+    </ol>
+  </body>
+</html>
+EOF
   end
 end
